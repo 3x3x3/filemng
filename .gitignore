@@ -130,3 +130,6 @@ dmypy.json
 
 # Pycharm
 .idea
+
+# file_mover
+move_list.txt

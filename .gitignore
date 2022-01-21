@@ -133,3 +133,6 @@ dmypy.json
 
 # file_mover
 move_list.txt
+
+# file_copier
+copy_list.txt

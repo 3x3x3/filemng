@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def main(from_dir: str, to_dir: str, is_first_start: bool = True):
+def main(from_dir: str, to_dir: str):
     chk_strs = []
 
     with open('copy_list.txt') as f:
@@ -10,7 +10,11 @@ def main(from_dir: str, to_dir: str, is_first_start: bool = True):
             s = row.replace('\r', '')
             s = s.replace('\n', '')
             s = s.lower()
-            chk_strs.append(s)
+
+            chk_strs.append('[' + s + ']')
+            chk_strs.append('[' + s + ',')
+            chk_strs.append(', ' + s + ',')
+            chk_strs.append(', ' + s + ']')
 
     file_nms = os.listdir(from_dir)
 
@@ -24,16 +28,10 @@ def main(from_dir: str, to_dir: str, is_first_start: bool = True):
         to_full_path = os.path.join(to_dir, file_nm)
         need_to_copy = False
 
-        if is_first_start:
-            for chk_str in chk_strs:
-                if 0 == lcase_f_nm.find(chk_str):
-                    need_to_copy = True
-                    break
-        else:
-            for chk_str in chk_strs:
-                if 0 <= lcase_f_nm.find(chk_str):
-                    need_to_copy = True
-                    break
+        for chk_str in chk_strs:
+            if 0 <= lcase_f_nm.find(chk_str):
+                need_to_copy = True
+                break
 
         if not need_to_copy:
             continue
@@ -48,6 +46,6 @@ if '__main__' == __name__:
     TO_PATH = '[FolderPath]'
 
     print('START !!')
-    main(FROM_PATH, TO_PATH, True)
+    main(FROM_PATH, TO_PATH)
     print('DONE !!')
 
